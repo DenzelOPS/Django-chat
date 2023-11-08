@@ -19,6 +19,7 @@ from channels.db import database_sync_to_async
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from channels.generic.websocket import AsyncWebsocketConsumer
+from django.contrib.auth.models import AnonymousUser
 from .models import Message, SessionKey, ChatRoom
 from chat.services import encrypt, decrypt
 
@@ -51,16 +52,20 @@ class ChatConsumer(AsyncWebsocketConsumer):
     
     
     async def connect(self):
-        self.chat_room_id = self.scope["url_route"]["kwargs"]["chat_room_id"]
-        self.room_group_name = f"chat_{self.chat_room_id}"
-        self.key = await sync_to_async(SessionKey.objects.get)(id = self.scope["session"]['session_key_id'])      
-        
-        await self.channel_layer.group_add(
-            self.room_group_name,
-            self.channel_name
-        )
-        await self.accept()
-        await self.get_chat_history()
+        user = self.scope["user"]
+        if user == AnonymousUser:
+            await self.close()
+        else:
+            self.chat_room_id = self.scope["url_route"]["kwargs"]["chat_room_id"]
+            self.room_group_name = f"chat_{self.chat_room_id}"
+            self.key = await sync_to_async(SessionKey.objects.get)(id = self.scope["session"]['session_key_id'])      
+            
+            await self.channel_layer.group_add(
+                self.room_group_name,
+                self.channel_name
+            )
+            await self.accept()
+            await self.get_chat_history()
         
         
     async def disconnect(self , close_code):
