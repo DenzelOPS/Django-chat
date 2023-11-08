@@ -1,7 +1,7 @@
 <h1 align="center">Django чат с шифрованием</h1>
 
 ## Запуск
-Сделано на Python версии 3.9.16.
+Сделано на Python версии 3.9.18.
 1. Скачать репозиторий 
     ```
     git clone https://github.com/DenzelOPS/Django-chat.git
