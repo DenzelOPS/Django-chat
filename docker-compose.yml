@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+   django_chat_project:
+       build: .
+       command: python manage.py runserver 0.0.0.0:8000
+       environment:
+           - SECRET_KEY=django-insecure-1$k=q&rl4b3gii*&1stsl_-bn3l$!4h%92%rrg@74!#(p4h4!o
+           - ENCRYPTION_KEY=hCtQBbCEUr6KBV4fsMQznezXe5-NeyGWxSJtiHz9_lw=
+       ports:
+           - 8000:8000

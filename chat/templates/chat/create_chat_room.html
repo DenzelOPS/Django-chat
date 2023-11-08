@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+{% load static %} 
+<html>
+<head>
+<link rel="stylesheet" href="{% static "css/create_chat_room.css" %}" />
+    <title>Create Chat Room</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Create a Chat Room</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Create</button>
+        </form>
+        <button onclick="location.href='{% url 'chat-page' %}';">Back to main page</button>
+    </div>
+</body>
+</html>

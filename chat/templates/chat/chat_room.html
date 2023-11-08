@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+{% load static %} 
+<html>
+  <head>
+  <link rel="stylesheet" href="{% static "css/styles.css" %}" />
+  <div id="id_message_send_container" data-room-id="{{ chat_room.id }}"></div>
+  <div id="username_send_container" data-room-id="{{request.user.username}}"></div>
+  </head>
+  <body>
+    <h1>Chat room {{chat_room.name}}</h1>
+    <br>
+    <div class="button-container">
+      <a href="{% url 'create-chat-room' %}">Create Chat Room</a>
+    </div>
+    <br />
+    <div class="button-container">
+      <a href="{% url 'chat-rooms' %}">Chat Rooms</a>
+    </div>
+    <br />
+    {% if request.user.is_authenticated  %}
+    <div class="button-container">
+      <a href="{% url 'logout-user' %}">Logout</a>
+    </div>
+    {% endif %}
+    <br />
+    <div class="chat__item__container" id="id_chat_item_container">
+      <br />
+      <input type="text" id="id_message_send_input" />
+      <button type="submit" id="id_message_send_button">Send Message</button>
+      <br />
+      <br />
+    </div>
+    <script src="{% static 'scripts/chat_room.js' %}"></script>
+  </body>
+</html>

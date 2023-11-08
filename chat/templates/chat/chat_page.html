@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+{% load static %} 
+<html>
+  <head>
+    <link rel="stylesheet" href="{% static "css/chat_page.css" %}" />
+  </head>
+  <body>
+    <h1>Hello, {{request.user}}</h1>
+    <a href="{% url 'create-chat-room' %}">Create Chat Room</a>
+    <a href="{% url 'chat-rooms' %}">Chat Rooms</a>
+    </br>
+    {% if request.user.is_authenticated  %}
+    Logout from the chat page <a href="{% url 'logout-user' %}">Logout</a>
+    {% endif %}
+  </body>
+</html>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+{% load static %} 
+<html>
+<head>
+<link rel="stylesheet" href="{% static "css/login.css" %}" />
+</head>
+<body>
+    <form method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <br>
+        <button type = "submit">Login</button>
+    </form>
+    {% if not request.user.is_authenticated %}
+    <br>
+    <center>Register a new account <a href="{% url 'register-user' %}">Register</a></center>
+    {% endif %}
+</body>
+</html>
